@@ -10,6 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageView
+            android:id="@+id/image_view_1"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginLeft="11dp"
+            android:layout_toRightOf="@+id/text_view_p1"
+            android:background="@drawable/letter_x" />
+
         <TextView
             android:id="@+id/text_view_p1"
             android:layout_width="wrap_content"
@@ -17,6 +26,16 @@
             android:freezesText="true"
             android:text="Player 1: 0"
             android:textSize="30sp" />
+
+        <ImageView
+            android:id="@+id/image_view_2"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_below="@+id/image_view_1"
+            android:layout_marginTop="14dp"
+            android:layout_marginLeft="11dp"
+            android:layout_toRightOf="@+id/text_view_p2"
+            android:background="@drawable/letter_o" />
 
         <TextView
             android:id="@+id/text_view_p2"
