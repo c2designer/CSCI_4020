@@ -4,29 +4,26 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    tools:context=".MainActivity"
-    android:background="@drawable/tictactoe">
+    tools:context=".WelcomeActivity"
+    android:background="@drawable/xo">
 
 
     <TextView
         android:id="@+id/welcome_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Welcome To Tic Tac Toe Variations!"
+        android:fontFamily="cursive"
+        android:text="@string/welcome_textView"
         android:textAlignment="center"
-        android:textColor="#ffffff"
-        android:textSize="40sp"
-
-
-        />
+        android:textColor="#000000"
+        android:textSize="40sp" />
 
     <Button
         android:id="@+id/play_button"
         android:layout_width="96dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="Play Revenge 3-In-A-Row!" />
+        android:text="@string/play_button" />
 
     <Button
         android:id="@+id/play2_button"
@@ -35,7 +32,7 @@
         android:layout_centerInParent="true"
         android:layout_below="@id/play_button"
         android:layout_marginTop="-2dp"
-        android:text="Play S.O.S.!" />
+        android:text="@string/play2_button" />
 
 
 

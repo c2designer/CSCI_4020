@@ -27,6 +27,14 @@ public class WelcomeActivity extends AppCompatActivity  {
             }
         });
 
+        Button b = findViewById(R.id.play2_button);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playGame2();
+            }
+        });
+
 
     }
 
@@ -35,6 +43,10 @@ public class WelcomeActivity extends AppCompatActivity  {
                 MainActivity.class);
         startActivity(intent);
     }
-
+    private void playGame2() {
+        Intent intent = new Intent(getApplicationContext(),
+                SecondActivity.class);
+        startActivity(intent);
+    }
 
 }
