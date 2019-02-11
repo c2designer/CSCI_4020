@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.concurrent.TimeUnit;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button[][] buttons = new Button[3][3];
@@ -59,21 +61,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ((Button) v).setText("O");
         }
 
-        roundCount++ ;
+        roundCount++;
 
-        if (checkForWin()) {
+        if (checkForRevenge()) {
             if (player1Turn) {
-                player1Wins();
+                Toast.makeText(this, "Player 2 can get REVENGE!", Toast.LENGTH_SHORT).show();
             } else {
-                player2Wins();
+                Toast.makeText(this, "Player 1 can get REVENGE!", Toast.LENGTH_SHORT).show();
             }
-        } else if (roundCount == 9) {
+        }else player1Turn = !player1Turn;
+        if (checkForWin()) {
+                if (player1Turn) {
+                    player1Wins();
+                } else {
+                    player2Wins();
+                }
+            } else if (roundCount == 9) {
             draw();
-        } else {
-            player1Turn = !player1Turn;
         }
 
-    }
+  }
+
+
 
     private boolean checkForWin() {
         String[][] field = new String[3][3];
@@ -114,7 +123,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         return false;
     }
+    private boolean checkForRevenge() {
+        String[][] field = new String[3][3];
 
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                field[i][j] = buttons[i][j].getText().toString();
+            }
+        }
+
+        for (int i = 0; i < 3; i++) {
+            if (field[i][0].equals(field[i][1])
+                    && field[i][0].equals(field[i][2])
+                    && !field[i][0].equals("")) {
+                return true;
+            }
+        }
+
+        for (int i = 0; i < 3; i++) {
+            if (field[0][i].equals(field[1][i])
+                    && field[0][i].equals(field[2][i])
+                    && !field[0][i].equals("")) {
+                return true;
+            }
+        }
+
+        if (field[0][0].equals(field[1][1])
+                && field[0][0].equals(field[2][2])
+                && !field[0][0].equals("")) {
+            return true;
+        }
+
+        if (field[0][2].equals(field[1][1])
+                && field[0][2].equals(field[2][0])
+                && !field[0][2].equals("")) {
+            return true;
+        }
+
+        return false;
+    }
     private void player1Wins() {
         player1Points++;
         Toast.makeText(this, "Player 1 wins!", Toast.LENGTH_SHORT).show();
@@ -124,9 +171,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void player2Wins() {
         player2Points++;
-        Toast.makeText(this, "Player 2 wins!", Toast.LENGTH_SHORT).show();
         updatePointsText();
+        Toast.makeText(this, "Player 2 wins!", Toast.LENGTH_SHORT).show();
         resetBoard();
+
     }
 
     private void draw() {
