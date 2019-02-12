@@ -1,5 +1,6 @@
 package com.example.tictactoe;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -47,6 +48,19 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
                     resetGame();
                 }
             });
+
+            Button buttonAbout = findViewById(R.id.button_about);
+            buttonAbout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    about();
+                }
+            });
+        }
+        private void about() {
+        Intent intent = new Intent(getApplicationContext(),
+                AboutApp.class);
+        startActivity(intent);
         }
 
         @Override

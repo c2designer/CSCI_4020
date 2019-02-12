@@ -35,6 +35,13 @@ public class WelcomeActivity extends AppCompatActivity  {
             }
         });
 
+        Button c = findViewById(R.id.about_button);
+        c.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                about();
+            }
+        });
 
     }
 
@@ -48,5 +55,12 @@ public class WelcomeActivity extends AppCompatActivity  {
                 SecondActivity.class);
         startActivity(intent);
     }
+
+    private void about() {
+        Intent intent = new Intent(getApplicationContext(),
+                AboutApp.class);
+        startActivity(intent);
+    }
+
 
 }

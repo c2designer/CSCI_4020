@@ -1,5 +1,6 @@
 package com.example.tictactoe;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -7,7 +8,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private boolean player1Turn = true;
 
     private int roundCount;
+
+    private int revengeToken = 0;
 
     private int player1Points;
     private int player2Points;
@@ -47,7 +49,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 resetGame();
             }
         });
+
+        Button buttonAbout = findViewById(R.id.button_about);
+        buttonAbout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                about();
+            }
+        });
     }
+
+    private void about() {
+        Intent intent = new Intent(getApplicationContext(),
+                AboutApp.class);
+        startActivity(intent);
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -63,26 +80,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         roundCount++;
 
-        if (checkForRevenge()) {
+        if (checkForWin()) {
             if (player1Turn) {
                 Toast.makeText(this, "Player 2 can get REVENGE!", Toast.LENGTH_SHORT).show();
+                revengeToken = 1;
             } else {
                 Toast.makeText(this, "Player 1 can get REVENGE!", Toast.LENGTH_SHORT).show();
+                revengeToken = 2;
             }
-        }else player1Turn = !player1Turn;
-        if (checkForWin()) {
-                if (player1Turn) {
-                    player1Wins();
-                } else {
-                    player2Wins();
-                }
-            } else if (roundCount == 9) {
+        }else if (roundCount == 9) {
             draw();
+        } else {
+            player1Turn = !player1Turn;
         }
-
-  }
-
-
+        if (checkForWin() && player1Turn && revengeToken == 2){
+                  player1Wins();
+              } else if (checkForWin() && !player1Turn && revengeToken == 1) {
+                player2Wins();
+            }
+        }
 
     private boolean checkForWin() {
         String[][] field = new String[3][3];
@@ -123,45 +139,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         return false;
     }
-    private boolean checkForRevenge() {
-        String[][] field = new String[3][3];
 
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                field[i][j] = buttons[i][j].getText().toString();
-            }
-        }
-
-        for (int i = 0; i < 3; i++) {
-            if (field[i][0].equals(field[i][1])
-                    && field[i][0].equals(field[i][2])
-                    && !field[i][0].equals("")) {
-                return true;
-            }
-        }
-
-        for (int i = 0; i < 3; i++) {
-            if (field[0][i].equals(field[1][i])
-                    && field[0][i].equals(field[2][i])
-                    && !field[0][i].equals("")) {
-                return true;
-            }
-        }
-
-        if (field[0][0].equals(field[1][1])
-                && field[0][0].equals(field[2][2])
-                && !field[0][0].equals("")) {
-            return true;
-        }
-
-        if (field[0][2].equals(field[1][1])
-                && field[0][2].equals(field[2][0])
-                && !field[0][2].equals("")) {
-            return true;
-        }
-
-        return false;
-    }
     private void player1Wins() {
         player1Points++;
         Toast.makeText(this, "Player 1 wins!", Toast.LENGTH_SHORT).show();
